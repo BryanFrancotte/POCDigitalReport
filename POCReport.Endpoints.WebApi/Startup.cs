@@ -1,3 +1,5 @@
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -20,6 +22,10 @@ namespace POCReport.Endpoints.WebApi
 		  // This method gets called by the runtime. Use this method to add services to the container.
 		  public void ConfigureServices(IServiceCollection services)
 		  {
+				// Creating the instance for the PDF creator.
+				services.AddSingleton(typeof(IConverter));
+				_ = new SynchronizedConverter(new PdfTools());
+
 				services.AddControllersWithViews();
 				// In production, the Angular files will be served from this directory
 				services.AddSpaStaticFiles(configuration =>
@@ -27,7 +33,7 @@ namespace POCReport.Endpoints.WebApi
 					 configuration.RootPath = "ClientApp/dist";
 				});
 
-				services.AddSwagger();
+				AddSwagger(services);
 		  }
 
 		  // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +77,16 @@ namespace POCReport.Endpoints.WebApi
 					 {
 						  spa.UseAngularCliServer(npmScript: "start");
 					 }
+				});
+
+				// Add Swagger UI
+				app.UseOpenApi(settings =>
+				{
+					 settings.DocumentName = "POC Digital Report WebApi - V1";
+				});
+				app.UseSwaggerUi3(settings =>
+				{
+					 settings.DocumentTitle = "POC Digital Report WebApi";
 				});
 		  }
 
