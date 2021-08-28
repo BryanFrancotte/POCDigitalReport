@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using POCReport.Endpoints.WebApi.Services;
 
 namespace POCReport.Endpoints.WebApi
 {
@@ -23,8 +24,7 @@ namespace POCReport.Endpoints.WebApi
 		  public void ConfigureServices(IServiceCollection services)
 		  {
 				// Creating the instance for the PDF creator.
-				services.AddSingleton(typeof(IConverter));
-				_ = new SynchronizedConverter(new PdfTools());
+				services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
 				services.AddControllersWithViews();
 				// In production, the Angular files will be served from this directory

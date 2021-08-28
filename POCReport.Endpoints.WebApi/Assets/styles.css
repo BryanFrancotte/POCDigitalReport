@@ -1,0 +1,43 @@
+﻿.body-warper {
+	border: 1px solid black;
+}
+
+.header {
+	text-align: center;
+}
+
+.title {
+	text-align: left;
+	padding-bottom: 35px;
+}
+
+table {
+	width: 80%;
+	border-collapse: collapse;
+}
+
+td, th {
+	padding: 15px;
+	font-size: 22px;
+	text-align: center;
+}
+
+.lesson-name {
+	text-align: left
+}
+
+.lesson-hours {
+	text-align: right
+}
+
+table th {
+	font-weight: bold
+}
+
+td:nth-child(odd) {
+	background-color: #f2f2f2;
+}
+
+td:first-child{
+	 background-color: white;
+}
